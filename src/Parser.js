@@ -269,7 +269,7 @@ class Parser {
     }
 
     dataRange.extendUpperBound(this.#state.index);
-    this.#tree.pushData(new Range(readResult.range.lower, readResult.range.upper - 1 /* do not contain trailing colon */), dataRange, this.#state.line, this.#state.column);
+    this.#tree.pushData(new Range(readResult.range.lower, readResult.range.upper - 1 /* do not contain trailing colon */), dataRange, this.#state.line, this.#state.index - datRange.lower);
   }
 }
 
