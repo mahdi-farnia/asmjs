@@ -37,7 +37,14 @@ section .data
   });
 
   describe("parse data section", () => {
-    it("data section with a non-string data", () => {
+    it("empty LFs", () => {
+      const input = "section .data\n\n\n\n";
+      const tree = new Parser(input).parse();
+      
+      assert.deepStrictEqual(emptyTree, tree, "new lines should not considered as data");
+    });
+
+    it("a non-string data", () => {
       const input = `
 section .data
 sample: 0x22
@@ -47,8 +54,22 @@ sample: 0x22
 
       assert.deepStrictEqual(expectedData, dataRangeArrayToString(input, tree.data_section), "single data instruction only contains one symbol & data");
     });
+
+    it("a non-string data with empty trailing lines", () => {
+      const input = `
+section .data
+sample: 0x22
+
+
+`;
+      const tree = new Parser(input).parse();
+      const expectedData = [["sample", "0x22"]];
+
+      assert.deepStrictEqual(expectedData, dataRangeArrayToString(input, tree.data_section), "single data instruction only contains one symbol & data");
+    });
+
     
-    it("data section ends with EOF", () => {
+    it("section ends with EOF", () => {
       const input = `
 section .data
 sample: 0xdeadbeaf`;
@@ -58,7 +79,7 @@ sample: 0xdeadbeaf`;
       assert.deepStrictEqual(expectedData, dataRangeArrayToString(input, tree.data_section), "single data instruction only contains one symbol & data");
     });
 
-    it("data section with a one-line string data", () => {
+    it("a one-line string data", () => {
       const input = `
 section .data
 sample: "Hello World"
@@ -69,7 +90,7 @@ sample: "Hello World"
       assert.deepStrictEqual(expectedData, dataRangeArrayToString(input, tree.data_section), "single data instruction only contains one symbol & one-line string");
     });
 
-    it("data section with a multiline string data", () => {
+    it("multiline string data", () => {
       const input = `
 section .data
 sample: 'Hello World
@@ -81,7 +102,7 @@ Sample Data'
       assert.deepStrictEqual(expectedData, dataRangeArrayToString(input, tree.data_section), "single data instruction only contains one symbol & multiline string");
     });
 
-    it("data section with seperated symbol and data lines", () => {
+    it("seperated symbol and data lines", () => {
       const input = `
 section .data
 sample:
@@ -94,7 +115,7 @@ Sample Data'
       assert.deepStrictEqual(expectedData, dataRangeArrayToString(input, tree.data_section), "single data instruction only contains one symbol & multiline string");
     })
 
-    it("data section with a multiple data", () => {
+    it("multiple data", () => {
       const input = `
 section .data
 sample: 0x22
