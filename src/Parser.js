@@ -360,7 +360,7 @@ class ParserError extends Error {
 
 const invalidOperand = /\W/i;
 function isInvalidOperand(str) {
-  const { 0: match } = invalidOperand.exec(str);
+  const match = invalidOperand.exec(str)?.[0];
   return match && match !== '-';
 }
 
