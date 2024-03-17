@@ -57,10 +57,19 @@ class Data {
   get data() {
     return this.#data;
   }
+  /**
+   * @type {{ line: number; column: number }}
+   */
+  #source_info;
 
-  constructor(symbol, data) {
+  get source_info() {
+    return this.#source_info;
+  }
+
+  constructor(symbol, data, line, column) {
     this.#symbol = symbol;
     this.#data = data;
+    this.#source_info = { line, column };
   }
 }
 

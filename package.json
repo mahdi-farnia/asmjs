@@ -1,0 +1,32 @@
+{
+  "name": "asmjs",
+  "version": "1.0.0",
+  "description": "Assembly language implementation for javascript",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": null,
+      "import": "libasm.js",
+      "default": "libasm.js"
+    }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mahdi-farnia/asmjs.git"
+  },
+  "author": "SoR (Mohammad M. Farnia)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/mahdi-farnia/asmjs/issues"
+  },
+  "homepage": "https://github.com/mahdi-farnia/asmjs#readme",
+  "devDependencies": {
+    "@types/node": "^20.11.28"
+  }
+}
