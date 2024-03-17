@@ -47,6 +47,16 @@ sample: 0x22
 
       assert.deepStrictEqual(expectedData, dataRangeArrayToString(input, tree.data_section), "single data instruction only contains one symbol & data");
     });
+    
+    it("data section ends with EOF", () => {
+      const input = `
+section .data
+sample: 0xdeadbeaf`;
+      const tree = new Parser(input).parse();
+      const expectedData = [["sample", '0xdeadbeaf']];
+
+      assert.deepStrictEqual(expectedData, dataRangeArrayToString(input, tree.data_section), "single data instruction only contains one symbol & data");
+    });
 
     it("data section with a one-line string data", () => {
       const input = `
