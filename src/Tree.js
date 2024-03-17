@@ -26,8 +26,8 @@ class Tree {
    * @param {Range} symbol
    * @param {Range} data
    */
-  pushData(symbol, data) {
-    this.#data_section.push(new Data(symbol, data));
+  pushData(symbol, data, line, column) {
+    this.#data_section.push(new Data(symbol, data, line, column));
   }
 
   /**
